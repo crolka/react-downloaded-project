@@ -22,11 +22,15 @@ function App() {
       title: "New Desk (Wooden)",
       amount: 450,
       date: new Date(2021, 5, 12),
-    },
+    }
   ];
 
   return (
-    <Expenses expenses={expensesList} />
+    <div>   
+      <h2>Let&apos;s get started!</h2>
+      <p>This is also visible</p>
+      <Expenses expenses={expensesList} />
+    </div>
   );
 }
 // jsx ("JavaScript XML") is a special react notation setup by the react team.
