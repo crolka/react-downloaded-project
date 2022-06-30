@@ -12,19 +12,12 @@ import "./ExpenseItem.css";
 // THe ExpenseDate component is a sub component to which we pass
 // the expenseDate property along.
 function ExpenseItem(props) {
-  const [title, setTitle] = useState(props.title);
-
-  const clickHandler = () => {
-    let newTitle = prompt("What is the new title? ");
-    setTitle(newTitle);
-  };
   return (<Card className="expense-item">
     <ExpenseDate expenseDate={props.expenseDate} />
     <div className="expense-item__description">
-      <h2>{title}</h2>
+      <h2>{props.title}</h2>
     </div>
     <div className="expense-item__price">${props.amount}</div>
-    <button onClick={clickHandler}>Change Title!</button>
   </Card>);
 }
 

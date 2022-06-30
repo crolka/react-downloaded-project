@@ -27,11 +27,15 @@ function App() {
     }
   ];
 
+  const saveFormDataHandler = (formData) => {
+    expensesList.push(formData);
+  };
+
   return (
     <div>   
 
       <h2>Let&apos;s get started!</h2>
-      <NewExpense />
+      <NewExpense onNewExpenseFormSave={saveFormDataHandler} />
       <Expenses expenses={expensesList} />
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   // This is a very common way to handle the state of the form.
   //    It is preferred by many because it is simple and straight
   //    forward.
@@ -53,7 +53,8 @@ const ExpenseForm = () => {
       date: new Date(enteredDate),
     };
 
-    console.log(expenseData);
+    //console.log(expenseData);
+    props.onSaveExpenseData(expenseData);
     setEnteredAmount('');
     setEnteredDate('');
     setEnteredTitle('');
