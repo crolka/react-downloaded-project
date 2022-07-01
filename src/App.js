@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from "./components/Expenses/Expenses";
 
-
-function App() {
-  // this is our desired target state.
-  const expensesList = [
+const DUMMY_DATA = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -27,16 +24,23 @@ function App() {
     }
   ];
 
-  const saveFormDataHandler = (formData) => {
-    expensesList.push(formData);
-  };
+function App() {
+  // this is our desired target state.
+  const [expenses, setExpenses] = useState(DUMMY_DATA);
+
+  const addExpenseHandler = (expense) => {
+    // passing the arrow function into the setExpenses method is absolutely
+    //    crucial to get this handler to work!!!
+    setExpenses((prevExpenses) => { 
+      return [expense, ...prevExpenses];
+    });
+  }
 
   return (
-    <div>   
-
-      <h2>Let&apos;s get started!</h2>
-      <NewExpense onNewExpenseFormSave={saveFormDataHandler} />
-      <Expenses expenses={expensesList} />
+    <div>
+      <h2>Let&apos;s get started!!!</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses items={expenses} />
     </div>
   );
 }
