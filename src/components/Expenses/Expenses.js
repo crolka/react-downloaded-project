@@ -4,13 +4,33 @@ import Card from "../UI/Card";
 import ExpensesFilter from "../ExpensesFilter/ExpensesFilter";
 import "./Expenses.css";
 
-function Expenses(props) {
-  //const items = props.expenses;
-  const [filterYear, setFilterYear] = useState("2019");
+function filteredExpensesByYear(filterYear, items){
+  return items.filter(
+    (item) => item.date.getFullYear() === parseInt(filterYear)
+  );
+}
 
+function Expenses(props) {
+  const [filterYear, setFilterYear] = useState("2019");
+  let filteredItems = filteredExpensesByYear(filterYear, props.items);
+  
   const changeExpenseFilterYearHandler = (expenseYear) => {
     setFilterYear(expenseYear);
+    filteredItems=filteredExpensesByYear(expenseYear, filteredItems);
   };
+
+  let expensesContent = <p className="">No Expenses Found.</p>;
+
+  if(filteredItems.length > 0) {
+    expensesContent = filteredItems.map((expense) => (
+      <ExpenseItem
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        expenseDate={expense.date}
+      />
+    ));
+  }
 
   return (
     <div>
@@ -19,13 +39,7 @@ function Expenses(props) {
           currentYear={filterYear}
           onFilterYearChange={changeExpenseFilterYearHandler}
         />
-        {props.items.map((expense) => (
-          <ExpenseItem key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            expenseDate={expense.date}
-          />
-        ))}
+        {expensesContent}
       </Card>
     </div>
   );
